@@ -1,0 +1,4 @@
+---
+  - include: delete_vm.yml
+  - include: delete_secgroup_rules.yml
+  - include: delete_secgroup.yml

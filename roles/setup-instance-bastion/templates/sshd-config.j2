@@ -1,0 +1,59 @@
+# SSHD configuration file
+
+# What ports, IPs and protocols we listen for
+# Only protocol version 2
+# Privilege Separation is turned on for security
+Port 22
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+UsePrivilegeSeparation yes
+AcceptEnv LANG LC_*
+ClientAliveInterval 300
+ClientAliveCountMax 0
+
+# Logging
+SyslogFacility AUTH
+LogLevel INFO
+
+# Authentication by RSA and Pubkey
+StrictModes yes
+LoginGraceTime 120
+RSAAuthentication yes
+PubkeyAuthentication yes
+HostbasedAuthentication no
+RhostsAuthentication no
+RhostsRSAAuthentication no
+IgnoreRhosts yes
+
+# Security point, choose carefully
+PermitEmptyPasswords no
+PermitRootLogin yes
+AllowUsers root
+PasswordAuthentication yes
+VerifyReverseMapping yes
+#AuthorizedKeysFile     %h/.ssh/authorized_keys
+
+# Allow TCP Forwarding
+AllowTcpForwarding yes
+TCPKeepAlive yes
+
+# Disable X11 forwarding
+X11Forwarding no
+X11DisplayOffset 10
+
+# Disable message of the day
+PrintMotd no
+PrintLastLog no
+
+# Allow sftp with OpenSSH
+Subsystem sftp /usr/lib/openssh/sftp-server
+
+# Enable PAM authentication, account processing, and session processing.
+UsePAM yes
+{% if ssh_enable_two_factor_auth %}
+ChallengeResponseAuthentication yes
+AuthenticationMethods publickey,keyboard-interactive
+{% endif %}

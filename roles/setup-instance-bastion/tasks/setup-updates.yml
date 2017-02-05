@@ -1,0 +1,33 @@
+# Configure unattenpted auto upgrade to apply security fix when they happens
+
+  # Upgrade the system
+  - name: Update all packages to the latest version
+    apt:
+      update_cache: yes
+      upgrade: dist
+    tags: upd
+
+  # Configure auto unattenpted-upgradesß
+  - name: Install unattended-upgrades
+    apt:
+      pkg: unattended-upgrades
+      cache_valid_time: 3600
+    tags: upd
+
+  - name: Setup APT auto-upgrades configuration
+    template:
+      src: auto-upgrades-config.j2
+      dest: /etc/apt/apt.conf.d/20auto-upgrades
+      owner: root
+      group: root
+      mode: 0644
+    tags: upd
+
+  - name: Setup APT unattended-upgrades configuration
+    template:
+      src: unattended-upgrades-config.j2
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
+      owner: root
+      group: root
+      mode: 0644
+    tags: upd

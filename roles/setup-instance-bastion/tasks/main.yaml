@@ -1,0 +1,4 @@
+---
+  - include: setup-updates.yml
+  - include: setup-base-tools.yml
+  - include: setup-secure-ssh.yml

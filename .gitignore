@@ -1,0 +1,7 @@
+.DS_STORE
+._*
+cluster-inventory
+secret/*
+ansible.log
+cloudstack.ini
+cloudstack.py

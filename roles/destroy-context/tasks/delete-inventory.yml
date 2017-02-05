@@ -1,0 +1,3 @@
+# Removes inventory file
+  - name: Delete inventory
+    file: path=./instance-inventory state=absent

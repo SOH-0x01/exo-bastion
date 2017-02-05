@@ -1,0 +1,11 @@
+[instance]
+{% for name in groups['instance'] %}
+{{ name }} ansible_host={{ hostvars[name]['ansible_host'] }}
+{% endfor %}
+
+[{{instance_name}}:children]
+instance
+
+[{{instance_name}}:vars]
+ansible_ssh_user=root
+ansible_python_interpreter=/usr/bin/python

@@ -1,0 +1,7 @@
+# Delete instance Security Group
+  - name: Delete intance security group
+    local_action:
+      module: cs_securitygroup
+      name: "{{ instance_security_group_name }}"
+      state: absent
+    tags: sg

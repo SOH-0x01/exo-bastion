@@ -1,0 +1,9 @@
+# Delete instance Security Groups rules
+  - name: Delete instance SSH rule for remote access
+    local_action:
+      module: cs_securitygroup_rule
+      security_group: "{{ instance_security_group_name}}"
+      start_port: 22
+      end_port: 22
+      state: absent
+    tags: sgr

@@ -1,0 +1,7 @@
+# Create instance Security Group
+  - name: Create intance security group
+    local_action:
+      module: cs_securitygroup
+      name: "{{ instance_security_group_name }}"
+      description: Security group for {{ instance_name }}
+    tags: sg

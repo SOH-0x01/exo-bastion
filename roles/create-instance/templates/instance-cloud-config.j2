@@ -1,0 +1,5 @@
+#cloud-config
+hostname: "{{ instance_prefix }}-{{ instance_name }}"
+packages:
+  - "python-minimal"
+final_message: "DONE"

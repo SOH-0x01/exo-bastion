@@ -1,0 +1,6 @@
+  - name: Delete instance
+    local_action:
+      module: cs_instance
+      name: "{{ instance_prefix }}-{{ instance_name }}"
+      state: expunged
+    tags: vm

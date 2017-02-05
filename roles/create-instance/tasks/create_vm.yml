@@ -1,0 +1,25 @@
+  - name: Start instance
+    local_action:
+      module: cs_instance
+      name: "{{ instance_prefix }}-{{ instance_name }}"
+      zone: "{{ exo_zone }}"
+      template: "{{ exo_template }}"
+      service_offering: "{{ exo_instance_type }}"
+      ssh_key: "{{ instance_ssh_key }}"
+      security_groups: [ '{{ instance_security_group_name }}' ]
+      tags:
+        - { key: env, value: "{{ instance_env }}" }
+        - { key: cluster_name, value: "{{ instance_name }}" }
+        - { key: cluster_role, value: "{{ instance_role }}" }
+      user_data: "{{ lookup('template', '../templates/instance-cloud-config.j2') }}"
+    register: instance
+    tags: vm
+
+  - debug: msg='The instance IP is {{ instance.default_ip }}'
+
+  - add_host:
+      groups: instance
+      hostname: "{{ instance.display_name }}"
+      ansible_host: "{{ instance.default_ip }}"
+      ansible_user: root
+      ansible_python_interpreter: /usr/bin/python

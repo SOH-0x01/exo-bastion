@@ -1,0 +1,49 @@
+- hosts: localhost
+  connection: local
+  vars:
+    exo_zone: CH-GVA-2
+    exo_template: Linux Ubuntu 16.04 LTS 64-bit 10G Disk (2016-10-20-85bb6c)
+    exo_instance_type: Tiny
+  post_tasks:
+    - name: Wait for the ssh to be up
+      become: false
+      local_action: wait_for host="{{ hostvars[item].ansible_host }}" port=22 timeout=90 delay=30
+      with_items: "{{ groups['instance'] }}"
+  roles:
+    - create-instance
+
+- hosts: instance
+  gather_facts: False
+  become: True
+  vars:
+    # Auto unattended upgrades
+    unattended_origins_patterns: ['origin=Ubuntu,archive=${distro_codename}-security,label=Ubuntu']
+    unattended_package_blacklist: []
+    unattended_autofix_interrupted_dpkg: true
+    unattended_minimal_steps: false
+    unattended_install_on_shutdown: false
+    unattended_mail: false
+    unattended_mail_only_on_error: false
+    unattended_remove_unused_dependencies: false
+    unattended_automatic_reboot: false
+    unattended_automatic_reboot_time: false
+    unattended_ignore_apps_require_restart: false
+    # SSH deamon
+    ssh_enable_two_factor_auth: false
+  roles:
+    - setup-instance-bastion
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Restart instance
+      local_action:
+        module: cs_instance
+        name: "{{ instance_prefix }}-{{ instance_name }}"
+        state: restarted
+
+# Create a context inventory and tools
+- hosts: localhost
+  connection: local
+  roles:
+    - create-context

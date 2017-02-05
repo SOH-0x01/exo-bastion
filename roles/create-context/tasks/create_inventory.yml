@@ -1,0 +1,4 @@
+# Create inventory file
+  - name: Create inventory
+    template: src=instance-inventory.j2 dest=./instance-inventory
+    tags: inv

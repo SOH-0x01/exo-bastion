@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  pre_tasks:
+    - name: Confirm total destruction
+      pause: prompt='Please confirm you want to destroy! Press return to continue. Press Ctrl+c and then "a" to abort'
+  roles:
+    - destroy-instance
+    - destroy-context
