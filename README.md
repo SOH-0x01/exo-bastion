@@ -49,5 +49,5 @@ Marc Guillen (marc.guillen@datsci.farm)
 
 Licence
 =======
-GNU
-Click on the [Link](COPYING) to see the full text.
+APACHE
+Click on the [Link](LICENSE) to see the full text.
