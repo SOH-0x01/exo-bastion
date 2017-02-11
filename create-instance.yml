@@ -31,7 +31,7 @@
     # SSH deamon
     ssh_enable_two_factor_auth: false
   roles:
-    - setup-instance-bastion
+    - setup-instance
 
 - hosts: localhost
   connection: local
