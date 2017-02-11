@@ -1,6 +1,6 @@
 .DS_STORE
 ._*
-cluster-inventory
+instance-inventory
 secret/*
 ansible.log
 cloudstack.ini
