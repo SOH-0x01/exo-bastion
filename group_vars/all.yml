@@ -4,5 +4,5 @@ instance_env: PROD
 instance_role: security
 instance_prefix: datsci-exo
 instance_ssh_key: datsci-exo-kp
-instance_ssh_cidr: 0.0.0.0/0
+instance_ssh_cidr: [ 0.0.0.0/0 ]
 instance_security_group_name: datsci-exo-sg-thewall
