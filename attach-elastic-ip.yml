@@ -1,0 +1,7 @@
+
+- hosts: all
+  vars:
+    - elastic_ip: 185.19.28.88
+  become: True
+  roles:
+    - attach-elastic-ip

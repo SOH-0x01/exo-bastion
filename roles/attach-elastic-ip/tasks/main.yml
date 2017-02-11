@@ -1,0 +1,12 @@
+
+# The Elastic IP shoulde be attached to the host
+- name: Add a new interfaces for the static ip
+  template:
+    src: templates/lo-interface.j2
+    dest: /etc/network/interfaces.d/XX-exoscale-static.cfg
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Activete the new interface
+  shell: "ifup lo:1"
