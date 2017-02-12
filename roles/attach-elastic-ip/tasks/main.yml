@@ -7,6 +7,8 @@
     owner: root
     group: root
     mode: 0644
+  tags: eip
 
 - name: Activete the new interface
   shell: "ifup lo:1"
+  tags: eip
