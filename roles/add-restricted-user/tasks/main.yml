@@ -1,0 +1,31 @@
+
+- name: Add a restricted user only for port forwarding
+  user:
+    name: "{{ user_name }}"
+    shell: /bin/false
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+  register: restricted_user
+  tags: fwd-usr
+
+- debug:
+    msg: "Public key: {{ restricted_user.ssh_public_key }}"
+
+- debug:
+    msg: "Finger print: {{ restricted_user.ssh_fingerprint }}"
+
+- name: Allow acces to ssh by adding the user to the sshd config
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^AllowUsers (.*)$"
+    line: 'AllowUsers {{ user_name }} \1'
+    backrefs: yes
+    backup: yes
+  tags: fwd-usr
+
+- name: Restart SSH service deamon
+  service:
+    name: ssh
+    state: restarted
+  tags: fwd-usr

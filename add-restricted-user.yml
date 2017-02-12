@@ -1,0 +1,7 @@
+# Add a restricted user to only port forward through the bastion
+- hosts: all
+  vars:
+    - user_name: datsci
+  become: True
+  roles:
+    - add-restricted-user
